@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelTest -Platformasi</title>
+    <link rel="stylesheet" href="advanced-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Menu -->
+    <div id="mainMenu" class="screen active">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="logo">
+                    <!-- <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <rect width="60" height="60" rx="12" fill="url(#gradient)"/>
+                        <path d="M30 15L45 25V40L30 50L15 40V25L30 15Z" fill="white" opacity="0.9"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="60" y2="60">
+                                <stop stop-color="#667eea"/>
+                                <stop offset="1" stop-color="#764ba2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg> -->
+                    <h1>IntelTest</h1>
+                </div>
+                <p class="subtitle">Test yarating yoki mavjud testni yechib ko'ring!</p>
+                
+                <div class="menu-cards">
+                    <div class="menu-card" onclick="showCreateTest()">
+                        <div class="menu-icon">➕</div>
+                        <h3>Yangi Test Yaratish</h3>
+                        <p>O'z testingizni yarating va boshqalar bilan ulashing</p>
+                    </div>
+                    <div class="menu-card" onclick="showTestList()">
+                        <div class="menu-icon">📝</div>
+                        <h3>Test Yechish</h3>
+                        <p>Mavjud testlardan birini tanlang va bilimingizni sinab ko'ring</p>
+                    </div>
+                    <div class="menu-card" onclick="showMyTests()">
+                        <div class="menu-icon">📚</div>
+                        <h3>Mening Testlarim</h3>
+                        <p>Siz yaratgan testlarni ko'ring va tahrirlang</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Test Screen -->
+    <div id="createTestScreen" class="screen">
+        <div class="admin-header">
+            <div class="container">
+                <button onclick="backToMenu()" class="btn-back">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"/>
+                    </svg>
+                    Orqaga
+                </button>
+                <h2>Yangi Test Yaratish</h2>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="create-test-content">
+                <div class="test-settings-card">
+                    <h3>Test Ma'lumotlari</h3>
+                    <div class="form-group">
+                        <label>Test Nomi</label>
+                        <input type="text" id="testName" class="modern-input" placeholder="Masalan: JavaScript Asoslari">
+                    </div>
+                    <div class="form-group">
+                        <label>Test Tavsifi</label>
+                        <textarea id="testDescription" class="modern-input" rows="3" placeholder="Test haqida qisqacha ma'lumot..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vaqt (daqiqa)</label>
+                            <input type="number" id="testTime" class="modern-input" value="30" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Qiyinlik</label>
+                            <select id="testDifficulty" class="modern-input">
+                                <option value="Oson">Oson</option>
+                                <option value="O'rta" selected>O'rta</option>
+                                <option value="Qiyin">Qiyin</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="questions-manager">
+                    <div class="questions-header">
+                        <h3>Savollar <span id="questionCount">(0)</span></h3>
+                        <button onclick="addQuestion()" class="btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+                            </svg>
+                            Savol Qo'shish
+                        </button>
+                    </div>
+
+                    <div id="questionsList" class="questions-list">
+                        <!-- Questions will be added here -->
+                    </div>
+
+                    <div class="save-test-section">
+                        <button onclick="saveTest()" class="btn-primary btn-large">
+                            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z"/>
+                            </svg>
+                            Testni Saqlash
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test List Screen -->
+    <div id="testListScreen" class="screen">
+        <div class="admin-header">
+            <div class="container">
+                <button onclick="backToMenu()" class="btn-back">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"/>
+                    </svg>
+                    Orqaga
+                </button>
+                <h2>Mavjud Testlar</h2>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="search-bar">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
+                </svg>
+                <input type="text" id="searchTests" class="search-input" placeholder="Test qidirish...">
+            </div>
+
+            <div id="testsGrid" class="tests-grid">
+                <!-- Tests will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- My Tests Screen -->
+    <div id="myTestsScreen" class="screen">
+        <div class="admin-header">
+            <div class="container">
+                <button onclick="backToMenu()" class="btn-back">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"/>
+                    </svg>
+                    Orqaga
+                </button>
+                <h2>Mening Testlarim</h2>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div id="myTestsGrid" class="tests-grid">
+                <!-- My tests will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Screen (Before Quiz) -->
+    <div id="welcomeScreen" class="screen">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="logo">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <rect width="60" height="60" rx="12" fill="url(#gradient2)"/>
+                        <path d="M30 15L45 25V40L30 50L15 40V25L30 15Z" fill="white" opacity="0.9"/>
+                        <defs>
+                            <linearGradient id="gradient2" x1="0" y1="0" x2="60" y2="60">
+                                <stop stop-color="#667eea"/>
+                                <stop offset="1" stop-color="#764ba2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1 id="selectedTestName">Test Nomi</h1>
+                </div>
+                <p class="subtitle" id="selectedTestDescription">Test tavsifi</p>
+                
+                <div class="user-info-card">
+                    <input type="text" id="userName" placeholder="Ismingizni kiriting" class="modern-input">
+                    <div class="test-info">
+                        <div class="info-item">
+                            <span class="info-label">Savollar soni</span>
+                            <span class="info-value" id="totalQuestions">10</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Vaqt</span>
+                            <span class="info-value" id="testTimeDisplay">30 daqiqa</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Qiyinlik</span>
+                            <span class="info-value" id="testDifficultyDisplay">O'rta</span>
+                        </div>
+                    </div>
+                    <div class="welcome-buttons">
+                        <button onclick="backToTestList()" class="btn-secondary">
+                            Orqaga
+                        </button>
+                        <button onclick="startTest()" class="btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                            </svg>
+                            Testni boshlash
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="screen">
+        <div class="quiz-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="user-badge">
+                        <div class="avatar" id="userAvatar">U</div>
+                        <span id="displayName">User</span>
+                    </div>
+                    <div class="progress-info">
+                        <div class="question-counter">
+                            <span class="current-q" id="currentQuestion">1</span>
+                            <span class="separator">/</span>
+                            <span class="total-q" id="totalQ">10</span>
+                        </div>
+                        <div class="timer" id="timer">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V5z"/>
+                            </svg>
+                            <span id="timeLeft">30:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container quiz-container">
+            <div class="question-card">
+                <div class="question-number">Savol <span id="qNum">1</span></div>
+                <h2 class="question-text" id="questionText">JavaScript qayerda ishlaydi?</h2>
+                
+                <div class="options-grid" id="optionsContainer">
+                    <!-- Options will be inserted here -->
+                </div>
+
+                <div class="quiz-controls">
+                    <button onclick="previousQuestion()" class="btn-secondary" id="prevBtn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"/>
+                        </svg>
+                        Oldingi
+                    </button>
+                    <button onclick="nextQuestion()" class="btn-primary" id="nextBtn">
+                        Keyingi
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="question-navigator">
+                <h3>Savollar</h3>
+                <div class="nav-grid" id="questionNav">
+                    <!-- Question navigation buttons will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsScreen" class="screen">
+        <div class="container">
+            <div class="results-content">
+                <div class="results-header">
+                    <div class="trophy-icon">🏆</div>
+                    <h1>Test yakunlandi!</h1>
+                    <p class="congrats-message" id="congratsMessage">Ajoyib natija!</p>
+                </div>
+
+                <div class="score-card">
+                    <div class="score-circle">
+                        <svg class="circular-progress" width="200" height="200">
+                            <circle class="bg-circle" cx="100" cy="100" r="80"></circle>
+                            <circle class="progress-circle" id="scoreCircle" cx="100" cy="100" r="80"></circle>
+                        </svg>
+                        <div class="score-text">
+                            <div class="percentage" id="scorePercentage">0%</div>
+                            <div class="score-label">Natija</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card correct">
+                        <div class="stat-icon">✓</div>
+                        <div class="stat-value" id="correctAnswers">0</div>
+                        <div class="stat-label">To'g'ri javoblar</div>
+                    </div>
+                    <div class="stat-card incorrect">
+                        <div class="stat-icon">✗</div>
+                        <div class="stat-value" id="incorrectAnswers">0</div>
+                        <div class="stat-label">Noto'g'ri javoblar</div>
+                    </div>
+                    <div class="stat-card time">
+                        <div class="stat-icon">⏱</div>
+                        <div class="stat-value" id="timeTaken">0:00</div>
+                        <div class="stat-label">Ketgan vaqt</div>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button onclick="reviewAnswers()" class="btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        Javoblarni ko'rish
+                    </button>
+                    <button onclick="backToMenu()" class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                        Bosh Sahifa
+                    </button>
+                </div>
+
+                <div class="review-section" id="reviewSection" style="display: none;">
+                    <h2>Javoblarni ko'rib chiqish</h2>
+                    <div id="reviewContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="creat-by">
+        <a href="https://github.com/Muhammadjonov-spec">
+            <div class="img-git"><svg style="width: 40px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M237.9 461.4C237.9 463.4 235.6 465 232.7 465C229.4 465.3 227.1 463.7 227.1 461.4C227.1 459.4 229.4 457.8 232.3 457.8C235.3 457.5 237.9 459.1 237.9 461.4zM206.8 456.9C206.1 458.9 208.1 461.2 211.1 461.8C213.7 462.8 216.7 461.8 217.3 459.8C217.9 457.8 216 455.5 213 454.6C210.4 453.9 207.5 454.9 206.8 456.9zM251 455.2C248.1 455.9 246.1 457.8 246.4 460.1C246.7 462.1 249.3 463.4 252.3 462.7C255.2 462 257.2 460.1 256.9 458.1C256.6 456.2 253.9 454.9 251 455.2zM316.8 72C178.1 72 72 177.3 72 316C72 426.9 141.8 521.8 241.5 555.2C254.3 557.5 258.8 549.6 258.8 543.1C258.8 536.9 258.5 502.7 258.5 481.7C258.5 481.7 188.5 496.7 173.8 451.9C173.8 451.9 162.4 422.8 146 415.3C146 415.3 123.1 399.6 147.6 399.9C147.6 399.9 172.5 401.9 186.2 425.7C208.1 464.3 244.8 453.2 259.1 446.6C261.4 430.6 267.9 419.5 275.1 412.9C219.2 406.7 162.8 398.6 162.8 302.4C162.8 274.9 170.4 261.1 186.4 243.5C183.8 237 175.3 210.2 189 175.6C209.9 169.1 258 202.6 258 202.6C278 197 299.5 194.1 320.8 194.1C342.1 194.1 363.6 197 383.6 202.6C383.6 202.6 431.7 169 452.6 175.6C466.3 210.3 457.8 237 455.2 243.5C471.2 261.2 481 275 481 302.4C481 398.9 422.1 406.6 366.2 412.9C375.4 420.8 383.2 435.8 383.2 459.3C383.2 493 382.9 534.7 382.9 542.9C382.9 549.4 387.5 557.3 400.2 555C500.2 521.8 568 426.9 568 316C568 177.3 455.5 72 316.8 72zM169.2 416.9C167.9 417.9 168.2 420.2 169.9 422.1C171.5 423.7 173.8 424.4 175.1 423.1C176.4 422.1 176.1 419.8 174.4 417.9C172.8 416.3 170.5 415.6 169.2 416.9zM158.4 408.8C157.7 410.1 158.7 411.7 160.7 412.7C162.3 413.7 164.3 413.4 165 412C165.7 410.7 164.7 409.1 162.7 408.1C160.7 407.5 159.1 407.8 158.4 408.8zM190.8 444.4C189.2 445.7 189.8 448.7 192.1 450.6C194.4 452.9 197.3 453.2 198.6 451.6C199.9 450.3 199.3 447.3 197.3 445.4C195.1 443.1 192.1 442.8 190.8 444.4zM179.4 429.7C177.8 430.7 177.8 433.3 179.4 435.6C181 437.9 183.7 438.9 185 437.9C186.6 436.6 186.6 434 185 431.7C183.6 429.4 181 428.4 179.4 429.7z"/></svg></div>
+            <p>Muhammadjonov Sardorbek <span>2025</span></p></a>
+    </div>
+    <script src="advanced-app.js"></script>
+    
+</body>
+</html>
